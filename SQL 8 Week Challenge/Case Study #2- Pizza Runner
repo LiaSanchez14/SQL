@@ -152,7 +152,8 @@ SELECT order_id, customer_id, pizza_id,
   END AS extras,
  order_time
  FROM Customer_orders;
-
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --For table runner_orders:
 --Replace all stringed (null) values and blank spaces with NULL value for constistency.
 --Cast distance and duration as integers.
