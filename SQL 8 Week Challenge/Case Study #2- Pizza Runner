@@ -131,12 +131,80 @@ VALUES
   (12, 'Tomato Sauce');
   
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Clean Up
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--For table Customer_orders:
+--Replace all stringed (null) values and blank spaces with NULL value for constistency. 
+--Store in a new table.
+
+CREATE TABLE cleaned_cust_orders AS
+
+SELECT order_id, customer_id, pizza_id, 
+  CASE 
+ 	WHEN exclusions = '' THEN NULL
+  	WHEN exclusions= 'null' THEN NULL
+  	ELSE exclusions
+  END AS exclusions,
+   CASE 
+  	WHEN extras = '' THEN NULL
+  	WHEN extras = 'null' THEN NULL
+  	ELSE extras
+  END AS extras,
+ order_time
+ FROM Customer_orders;
+
+--For table runner_orders:
+--Replace all stringed (null) values and blank spaces with NULL value for constistency.
+--Cast distance and duration as integers.
+--Store in a new table
+
+CREATE TABLE cleaned_runner_orders AS
+
+WITH new_runner AS (
+
+SELECT order_id, runner_id, 
+  CASE 
+ 	WHEN pickup_time = '' THEN NULL
+  	WHEN pickup_time = 'null' THEN NULL
+  	ELSE pickup_time
+  END AS pickup_time,
+   CASE 
+  	WHEN distance = '' THEN NULL
+  	WHEN distance = 'null' THEN NULL
+  	ELSE distance
+  END AS distance_km,
+ CASE 
+  	WHEN duration = '' THEN NULL
+  	WHEN duration = 'null' THEN NULL
+  	ELSE duration
+  END AS duration_mins, 
+ CASE 
+  	WHEN cancellation = '' THEN NULL
+  	WHEN cancellation = 'null' THEN NULL
+  	ELSE cancellation
+  END AS cancellation
+ FROM Runner_orders
+ )
+ 
+SELECT
+		order_id,
+		runner_id,
+		pickup_time,
+		CAST(distance_km AS DECIMAL(3,1)) AS distance_km, 
+		CAST(duration_mins AS SIGNED INT) AS duration_mins,
+		cancellation
+FROM new_runner;
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Case Study Questions
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Pizza Metrics
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --How many pizzas were ordered?
+
+
 
 --How many unique customer orders were made?
 
