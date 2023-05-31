@@ -251,18 +251,60 @@ LIMIT 1;
 
 --For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
-
+SELECT customer_id,
+SUM(CASE
+	WHEN exclusions NOT NULL OR extras NOT NULL THEN 1
+    ELSE 0
+END) AS at_least_one_change,
+SUM(CASE
+	WHEN exclusions IS NULL AND extras IS NULL THEN 1
+    ELSE 0
+END) AS no_changes
+FROM cleaned_cust_orders cc
+INNER JOIN cleaned_runner_orders cr
+ON cc.order_id = cr.order_id
+WHERE cancellation IS NULL
+GROUP BY customer_id;
 
 --How many pizzas were delivered that had both exclusions and extras?
 
+SELECT COUNT(cc.order_id) AS both_exclusions_and_extras
+FROM cleaned_cust_orders cc
+INNER JOIN cleaned_runner_orders cr
+ON cc.order_id = cr.order_id
+WHERE cancellation IS NULL AND exclusions NOT NULL AND extras NOT NULL;
+
 --What was the total volume of pizzas ordered for each hour of the day?
 
+SELECT strftime('%H', order_time) AS hour, COUNT(order_id) AS pizzas_ordered
+FROM cleaned_cust_orders
+GROUP BY hour
+ORDER BY hour;
+
 --What was the volume of orders for each day of the week?
+
+SELECT 
+CASE
+CAST (strftime('%w', order_time) as integer)
+  WHEN 0 THEN 'Sunday'
+  WHEN 1 THEN 'Monday'
+  WHEN 2 THEN 'Tuesday'
+  WHEN 3 THEN 'Wednesday'
+  WHEN 4 THEN 'Thursday'
+  WHEN 5 THEN 'Friday'
+  ELSE 'Saturday' 
+END as weekday, 
+COUNT(order_id) AS pizzas_ordered
+FROM cleaned_cust_orders
+GROUP BY weekday
+ORDER BY pizzas_ordered desc;
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Runner and Customer Experience
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+
+
 
 --What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 
