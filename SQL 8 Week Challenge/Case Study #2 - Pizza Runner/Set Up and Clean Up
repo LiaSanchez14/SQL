@@ -196,3 +196,29 @@ SELECT
 		cancellation
 FROM new_runner;
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--For table Pizza_recipes:
+--Create a new table with each pizza topping in a sepearte row
+
+CREATE TABLE cleaned_pizza_recipes
+(pizza_id int,
+ toppings int);
+ 
+INSERT INTO cleaned_pizza_recipes
+(pizza_id, toppings) 
+
+VALUES
+(1,1),
+(1,2),
+(1,3),
+(1,4),
+(1,5),
+(1,6),
+(1,8),
+(1,10),
+(2,4),
+(2,6),
+(2,7),
+(2,9),
+(2,11),
+(2,12);
