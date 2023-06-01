@@ -198,7 +198,7 @@ FROM new_runner;
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --For table Pizza_recipes:
---Create a new table with each pizza topping in a sepearte row
+--Create a new table with each pizza topping_id in a sepearte row
 
 CREATE TABLE cleaned_pizza_recipes
 (pizza_id int,
