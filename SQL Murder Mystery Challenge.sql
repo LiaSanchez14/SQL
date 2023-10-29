@@ -91,15 +91,15 @@ WHERE id LIKE '48Z%' AND membership_status ='gold' AND check_in_date = 20180109;
 --Two people fit this description--
 
 --id --> 48Z7A
---person_id	--> 28819
+--person_id --> 28819
 --name --> Joe Germuska
---membership_status	--> gold
+--membership_status --> gold
 --check_in_date --> 20180109
 
 --id --> 48Z55
---person_id	--> 67318
+--person_id --> 67318
 --name --> Jeremy Bowers
---membership_status	--> gold
+--membership_status --> gold
 --check_in_date --> 20180109
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 --How many people own a car with a drivers license that includes "H42W" in the numeration?--
@@ -116,9 +116,9 @@ SELECT *
 FROM drivers_license
 WHERE plate_number LIKE '%H42W%';
 
--- id	    age height	eye_color	 hair_color	 gender	  plate_number	 car_make	    car_model
---183779	21	 65	    blue	     blonde	     female  	H42W0X	       Toyota	      Prius
---423327	30	 70   	brown	     brown	      male	  0H42W2	       Chevrolet	  Spark LS
+-- id	       age      height	  eye_color	   hair_color	     gender	  plate_number	      car_make	    car_model
+--183779	21	 65	    blue	     blonde	     female  	  H42W0X	       Toyota	      Prius
+--423327	30	 70   	    brown	     brown	      male	  0H42W2	       Chevrolet      Spark LS
 --664760	21	 71	    black	     black	      male	  4H42WR	       Nissan	      Altima--
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 --What are the names of the drivers?--
@@ -129,7 +129,7 @@ INNER JOIN drivers_license
 ON person.license_id = drivers_license.id
 WHERE drivers_license.id = 183779 OR drivers_license.id = 423327 OR drivers_license.id = 664760
 
---license_id	 name
+--license_id	          name
 --183779	     Maxine Whitely
 --423327	     Jeremy Bowers
 --664760	     Tushar Chandra--
@@ -154,7 +154,7 @@ ON person.id= get_fit_now_member.person_id
 WHERE get_fit_now_member.id= '48Z7A' OR get_fit_now_member.id= '48Z55';
 
 --get_fit_now_member_id	--> 48Z55
---person_id	--> 67318
+--person_id --> 67318
 --name --> Jeremy Bowers
 --transcript --> I was hired by a woman with a lot of money. 
 --I don't know her name but I know she's around 5'5" (65") or 5'7" (67"). 
@@ -170,7 +170,7 @@ WHERE date LIKE '201712%' AND event_name= 'SQL Symphony Concert'
 GROUP BY name
 ORDER BY attendance_count desc;
 
---person_id	--> 99716
+--person_id --> 99716
 --name --> Miranda Priestly
 --event_name --> SQL Symphony Concert
 --attendance_count --> 3
@@ -184,7 +184,7 @@ ON person.ssn = income.ssn
 WHERE person.name = 'Miranda Priestly'
 
 --id	   name	             license_id	 address_number	 address_street_name   	 ssn	        annual_income
---99716	 Miranda Priestly	 202298	     1883	           Golden Ave	             987756388	  310000--
+--99716	 Miranda Priestly	 202298	     1883	      Golden Ave         987756388	  310000--
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                                          ALL DONE!!
+                                                                          --ALL DONE!!
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
